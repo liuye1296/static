@@ -50,8 +50,11 @@ app.use(serve('.'));
 // $ GET /hello.txt
 app.use(serve('test/fixtures'));
 
-// or use absolute paths
-app.use(serve(__dirname + '/test/fixtures'));
+// or use absolute paths 添加prefix 参数 配合nginx反向代理  
+app.use(serve(__dirname + '/test/fixtures'),{
+  prefix:'xxxxx'
+});
+
 
 app.listen(3000);
 

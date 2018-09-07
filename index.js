@@ -40,8 +40,14 @@ function serve (root, opts) {
       let done = false
 
       if (ctx.method === 'HEAD' || ctx.method === 'GET') {
+        let path;
+        if (opts.prefix) {
+          path = ctx.path.replace(opts.prefix, '');
+        } else {
+          path = ctx.path;
+        }
         try {
-          done = await send(ctx, ctx.path, opts)
+          done = await send(ctx,path, opts)
         } catch (err) {
           if (err.status !== 404) {
             throw err
@@ -61,9 +67,14 @@ function serve (root, opts) {
     if (ctx.method !== 'HEAD' && ctx.method !== 'GET') return
     // response is already handled
     if (ctx.body != null || ctx.status !== 404) return // eslint-disable-line
-
+    let path;
+    if (opts.prefix) {
+      path = ctx.path.replace(opts.prefix, '');
+    } else {
+      path = ctx.path;
+    }
     try {
-      await send(ctx, ctx.path, opts)
+      await send(ctx, path, opts)
     } catch (err) {
       if (err.status !== 404) {
         throw err

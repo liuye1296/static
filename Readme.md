@@ -12,7 +12,7 @@
 ## Installation
 
 ```bash
-$ npm install koa-static
+$ git clone  https://github.com/liuye1296/static.git
 ```
 
 ## API
